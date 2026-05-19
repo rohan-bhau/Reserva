@@ -1,15 +1,9 @@
-import { Geist, Geist_Mono } from "next/font/google";
+
+import { inter, poppins } from "@/fonts/font";
 import "./globals.css";
+import Navbar from "@/components/common/navbar/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Reserva",
@@ -20,9 +14,14 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body
+        className={`${poppins.variable} ${inter.variable} min-h-full flex flex-col`}
+      >
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
