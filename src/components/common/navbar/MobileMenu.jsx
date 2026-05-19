@@ -13,7 +13,7 @@ const MobileMenu = () => {
   return (
     <div className="">
           <Drawer>
-      <Button variant="secondary">
+      <Button variant="secondary" className={'text-[#029691]'}>
         <Bars />
         Menu
       </Button>
@@ -32,19 +32,19 @@ const MobileMenu = () => {
             </Drawer.Header>
             <Drawer.Body className="flex flex-col  justify-between">
               <nav className="flex flex-col gap-1">
-                                  <Link href={'/'} className={`${pathName === '/' ? "text-[#df7a15] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
+                                  <Link href={'/'} className={`${pathName === '/' ? "text-[#029691] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
                                       <FiHome /> Home
                                   </Link>
-                                  <Link href={'/all-facilities'} className={`${pathName === '/all-facilities' ? "text-[#df7a15] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
+                                  <Link href={'/all-facilities'} className={`${pathName === '/all-facilities' ? "text-[#029691] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
                                       <MdOutlineSportsSoccer  /> All Facilities
                                   </Link>
-                                  <Link href={'/my-bookings'} className={`${pathName === '/my-bookings' ? "text-[#df7a15] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
+                                  <Link href={'/my-bookings'} className={`${pathName === '/my-bookings' ? "text-[#029691] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
                                       <FiCalendar  /> My Bookings
                                   </Link>
-                                  <Link href={'add-facilities'} className={`${pathName === '/add-facilities' ? "text-[#df7a15] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
+                                  <Link href={'add-facilities'} className={`${pathName === '/add-facilities' ? "text-[#029691] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
                                       <FiPlusCircle  /> Add Facilities
                                   </Link>
-                                  <Link href={'/manage-facilities'} className={`${pathName === '/manage-facilities' ? "text-[#df7a15] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
+                                  <Link href={'/manage-facilities'} className={`${pathName === '/manage-facilities' ? "text-[#029691] " : "text-[#45423d] hover:text-[#050403]"} flex items-center gap-3  font-semibold text-sm relative transition duration-300`}>
                                       <FiSettings  /> Manage Facilities
                                   </Link>
                               </nav>
