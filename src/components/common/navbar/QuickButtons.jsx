@@ -17,7 +17,7 @@ const QuickButtons = () => {
   } = authClient.useSession() 
 
   const user = session?.user
-  console.log('session', user)
+  // console.log('session', user)
   return (
     <div className='flex gap-4'>
       {user ? <div className='flex items-center gap-3 px-4 py-2 rounded-xl bg-white border border-gray-200 shadow-sm hover:shadow-md hover:bg-gray-50 transition duration-300'>
