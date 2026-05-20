@@ -5,9 +5,15 @@ import Link from "next/link"
 import NavLink from "./NavLink"
 import QuickButtons from "./QuickButtons"
 import MobileMenu from "./MobileMenu"
+import { authClient } from "@/lib/auth-client"
 
 
 const Navbar = () => {
+    const { 
+            data: session, 
+      } = authClient.useSession() 
+    
+      const user = session?.user
   return (
     <div className={`${poppins.className} bg-white  border-gray-100 border-b px-5 fixed z-40 w-full h-[80px]`}>
           <div className="container mx-auto pt-3 pb-5 flex justify-between items-center">
@@ -21,9 +27,11 @@ const Navbar = () => {
                   <ul className="lg:flex gap-3 hidden">
                   <li><NavLink href={'/'}>Home</NavLink></li>
                   <li><NavLink href={'/all-facilities'}>All Facilities</NavLink></li>
-                  <li><NavLink href={'/my-bookings'}>My Bookings</NavLink></li>
+                  {
+                      user ? <><li><NavLink href={'/my-bookings'}>My Bookings</NavLink></li>
                   <li><NavLink href={'/add-facilities'}>Add Facilities</NavLink></li>
-                  <li><NavLink href={'/manage-facilities'}>Manage Facilities</NavLink></li>
+                  <li><NavLink href={'/manage-facilities'}>Manage Facilities</NavLink></li></>: ""
+                  }
                   
               </ul>
 

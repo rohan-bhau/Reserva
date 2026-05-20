@@ -63,6 +63,17 @@ const [isLoading, setIsLoading] = useState(false)
 
   }
 
+  const handleGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        })
+    }
+  const handleGithubSignIn = async () => {
+         await authClient.signIn.social({
+        provider: "github"
+    })
+    }
+
   return (
     <div className='min-h-screen mt-25 mb-10 md:mt-10 flex items-center justify-center bg-[#f8fafc] px-5'>
 
@@ -239,11 +250,11 @@ const [isLoading, setIsLoading] = useState(false)
 
         {/* social Login */}
         <div className='flex gap-3'>
-          <Button variant='outline' className="w-full rounded-lg flex gap-2">
+          <Button variant='outline' className="w-full rounded-lg flex gap-2" onClick={handleGoogleSignIn}>
             <FcGoogle /> Google
           </Button>
 
-          <Button variant='outline' className="w-full rounded-lg flex gap-2">
+          <Button variant='outline' className="w-full rounded-lg flex gap-2" onClick={handleGithubSignIn}>
             <FaGithub /> Github
           </Button>
         </div>
