@@ -1,6 +1,7 @@
 'use client'
-import { Button } from '@heroui/react'
+import { Button, Skeleton } from '@heroui/react'
 import { motion } from 'framer-motion'
+import { div } from 'motion/react-client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaClock, FaMapMarkerAlt, FaUsers } from 'react-icons/fa'
@@ -29,6 +30,7 @@ const sportColors = {
 }
 
 const FacilityCard = ({ facility }) => {
+
   return (
     <motion.div
       variants={container}
@@ -41,6 +43,7 @@ const FacilityCard = ({ facility }) => {
         whileHover={{ y: -6 }}
         className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
       >
+    {/* <div> */}
 
         {/* IMAGE */}
         <div className="relative h-52 overflow-hidden">
@@ -105,8 +108,9 @@ const FacilityCard = ({ facility }) => {
 
         </div>
 
+      {/* </div> */}
       </motion.div>
-    </motion.div>
+    </motion.div >
   )
 }
 

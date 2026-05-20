@@ -56,13 +56,20 @@ const AddFacilityPage = () => {
     setSlots(slots.filter((s) => s !== slot));
   };
 
+  const { 
+          data: session, 
+    } = authClient.useSession() 
+  
+    const user = session?.user
+    console.log('session', user)
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget
 
-    const author = "Rohan Mia"
-    const authorId = '6a0d934e6e8ad7706bf3d022'
-    const authorEmail = "rohan@gmail.com"
+    const author = user?.name
+    const authorId = user?.id
+    const authorEmail = user?.email
 
     const formData = new FormData(e.currentTarget);
     const facilityData = Object.fromEntries(formData.entries());
