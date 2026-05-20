@@ -1,21 +1,47 @@
 'use client'
 import { Eye, EyeSlash } from '@gravity-ui/icons';
-import { Button, Description, FieldError, Form, Input, InputGroup, Label, Separator, TextField } from '@heroui/react'
+import { Button, Description, FieldError, Form, Input, InputGroup, Label, Separator, Spinner, TextField } from '@heroui/react'
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { useState } from 'react';
+import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
+import { redirect } from 'next/navigation';
 
 const SignInPage = () => {
+    const [isVisible, setIsVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
 
-  const [isVisible, setIsVisible] = useState(false);
+  const onSubmit = async(e) => {
+      e.preventDefault()
+      setIsLoading(true)
+       const formData = new FormData(e.currentTarget)
+      const user = Object.fromEntries(formData.entries())
 
-  const onSubmit = (e) => {
-    e.preventDefault()
+      const { data, error } = await authClient.signIn.email({
+    email: user.email, // required
+    password: user.password, // required
+    rememberMe: true,
+    // callbackURL: "https://example.com/callback",
+      });
+      
+      if (data) {
+          toast.success(`Welcome back! ${data.user.name}`)
+          redirect('/')
+      }
+      if (error) {
+          toast.error(`${error.message}`)
+          setIsLoading(false)
+      }
+
+      console.log('Form Submitted', user)
+      console.log({ data, error })
+      setIsLoading(false)
   }
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-[#f8fafc] px-5'>
+    <div className='min-h-[70vh] mt-25 md:mt-10 lg:mt-20 mb-10 flex items-center justify-center bg-[#f8fafc] px-5'>
 
       <div className='w-full max-w-md bg-white p-8 rounded-2xl border border-gray-100 shadow-sm'>
 
@@ -64,7 +90,10 @@ const SignInPage = () => {
     }
              if (!/[a-z]/.test(value)) {
       return "Must include at least one lowercase letter";
-    }
+                }
+                 if (!/[0-9]/.test(value)) {
+            return "Must contain at least one number";
+          }
     return null;
   }}
 >
@@ -110,9 +139,12 @@ const SignInPage = () => {
           <Button
             type="submit"
             className='w-full rounded-lg bg-[#0EA5A4] text-white 
-            hover:bg-[#0B7C7B] transition duration-300 shadow-sm hover:shadow-md'
+            hover:bg-[#0B7C7B] transition duration-300 shadow-sm hover:shadow-md flex items-center justify-center gap-2'
           >
-            Login
+                      {isLoading ?( <>
+                      <Spinner />
+                        Logging in...
+                      </> ): "Login"}
           </Button>
 
         </Form>

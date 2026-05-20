@@ -9,34 +9,62 @@ import {
   InputGroup,
   Label,
   Separator,
+  Spinner,
   TextField
 } from '@heroui/react'
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { useState } from 'react';
+import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
+import { redirect } from 'next/navigation';
 
 const RegisterPage = () => {
-
+const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    if (password !== confirmPassword) {
+  const onSubmit = async(e) => {
+      e.preventDefault();
+      setIsLoading(true)
+       if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
-    console.log("Form submitted");
+      
+      const formData = new FormData(e.currentTarget)
+      const user = Object.fromEntries(formData.entries())
+
+      const { data, error } = await authClient.signUp.email({
+    name: user.name,
+    email: user.email, 
+    password: user.password, 
+    image: user.image,
+    // callbackURL: "https://example.com/callback",
+});
+
+      if (data) {
+          toast.success("SignUp Successfull")
+          redirect('/')
+      }
+      if (error) {
+          toast.error(`${error.message}`)
+          setIsLoading(false)
+      }
+      
+    console.log("Form submitted", user);
+      console.log({ data, error });
+    setIsLoading(false)
+
   }
 
   return (
-    <div className='min-h-screen mt-10 flex items-center justify-center bg-[#f8fafc] px-5'>
+    <div className='min-h-screen mt-25 mb-10 md:mt-10 flex items-center justify-center bg-[#f8fafc] px-5'>
 
       <div className='w-full max-w-md bg-white p-8 rounded-2xl border border-gray-100 shadow-sm'>
 
@@ -112,7 +140,8 @@ const RegisterPage = () => {
               if (!value) return "Password is required";
               if (value.length < 6) return "At least 6 characters required";
               if (!/[A-Z]/.test(value)) return "Add one uppercase letter";
-              if (!/[a-z]/.test(value)) return "Add one lowercase letter";
+                if (!/[a-z]/.test(value)) return "Add one lowercase letter";
+                 if (!/[0-9]/.test(value)) return "Must contain at least one number";
               return null;
             }}
           >
@@ -190,9 +219,13 @@ const RegisterPage = () => {
           <Button
             type="submit"
             className='w-full rounded-lg bg-[#0EA5A4] text-white 
-            hover:bg-[#0B7C7B] transition duration-300 shadow-sm hover:shadow-md'
+            hover:bg-[#0B7C7B] transition duration-300 shadow-sm hover:shadow-md flex justify-center items-centera gap-2'
           >
-            Sign Up
+                      {isLoading ? (<>
+                          <Spinner />
+                          Creating account...
+                      </>)
+                          : ("SignUp")}
           </Button>
 
         </Form>

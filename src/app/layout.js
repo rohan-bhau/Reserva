@@ -3,6 +3,7 @@ import { inter, poppins } from "@/fonts/font";
 import "./globals.css";
 import Navbar from "@/components/common/navbar/Navbar";
 import Footer from "@/components/common/footer/Footer";
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -22,7 +23,8 @@ export default function RootLayout({ children }) {
       >
         <Navbar />
         {children}
-        <Footer/>
+        <Toaster />
+        <Footer />
       </body>
     </html>
   );
