@@ -36,7 +36,7 @@ const Text = () => {
               variants={fadeUp}
               className="mt-4 text-sm sm:text-base text-gray-200"
             >
-              Discover and book top sports facilities easily.
+              Discover and book top sports facilities for your events, activities and celebrations. Simple fast and reliable.
             </motion.p>
 
             <motion.div variants={fadeUp}>

@@ -1,11 +1,5 @@
 
-import { Button } from '@heroui/react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { BiSupport } from 'react-icons/bi';
-import { FaArrowRight, FaCalendarAlt } from 'react-icons/fa';
-import { FaShieldHalved } from 'react-icons/fa6';
-import { LuDrum } from 'react-icons/lu';
 import Text from './Text';
 import Features from './Features';
 import Stats from './Stats';

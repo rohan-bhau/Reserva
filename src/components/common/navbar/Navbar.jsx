@@ -2,7 +2,6 @@ import {  poppins } from "@/fonts/font"
 import Image from "next/image"
 import Link from "next/link"
 import NavLink from "./NavLink"
-import { Button } from "@heroui/react"
 import QuickButtons from "./QuickButtons"
 import MobileMenu from "./MobileMenu"
 
