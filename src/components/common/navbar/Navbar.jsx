@@ -7,9 +7,9 @@ import MobileMenu from "./MobileMenu"
 
 const Navbar = () => {
   return (
-    <div className={`${poppins.className} bg-[#fff7f2] border-b px-5 fixed z-40 w-full h-[80px]`}>
+    <div className={`${poppins.className} bg-white  border-gray-100 border-b px-5 fixed z-40 w-full h-[80px]`}>
           <div className="container mx-auto py-5 flex justify-between items-center">
-              <div className="w-15">
+              <div className="w-20">
              <Link href={'/'}> <Image src={'/assets/nav-logo.png'} width={300} height={200} alt="nav-logo" /></Link>
               </div>
               

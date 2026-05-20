@@ -15,7 +15,8 @@ const QuickLinks = () => {
           <ul className='space-y-2 text-sm'>
             <li><Link href='/' className='text-gray-300 hover:text-[#0EA5A4] transition'>Home</Link></li>
             <li><Link href='/all-facilities' className='text-gray-300 hover:text-[#0EA5A4] transition'>Browse Facilities</Link></li>
-            <li><Link href='#' className='text-gray-300 hover:text-[#0EA5A4] transition'>How It Works</Link></li>
+            <li><Link href='/#' className='text-gray-300 hover:text-[#0EA5A4] transition'>How It Works</Link></li>
+            <li><Link href='/#faq' className='text-gray-300 hover:text-[#0EA5A4] transition'>FAQ's</Link></li>
             <li><Link href='#' className='text-gray-300 hover:text-[#0EA5A4] transition'>Contact Us</Link></li>
           </ul>
         </motion.div>

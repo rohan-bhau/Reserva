@@ -1,4 +1,5 @@
 import Banner from '@/components/common/banner/Banner'
+import FAQ from '@/components/common/faq/FAQ'
 import WhyChoose from '@/components/common/whyChoose/WhyChoose'
 import HowItWorks from '@/components/howItWorks/HowItWorks'
 import React from 'react'
@@ -9,7 +10,8 @@ const Homepage = () => {
           HomePage
           <Banner />
           <HowItWorks />
-          <WhyChoose/>
+          <WhyChoose />
+          <FAQ/>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 'use client'
-import {Bars, Bell, Envelope, Gear, House, Magnifier, Person} from "@gravity-ui/icons";
+import {Bars} from "@gravity-ui/icons";
 import {Button, Drawer} from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ const MobileMenu = () => {
   return (
     <div className="">
           <Drawer>
-      <Button variant="secondary" className={'text-[#029691]'}>
+      <Button className="bg-[#ebf7f5] text-[#029691] hover:bg-[#dff3f1]">
         <Bars />
         Menu
       </Button>

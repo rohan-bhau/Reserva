@@ -1,13 +1,13 @@
 'use client'
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import {motion} from 'motion/react';
+import { motion } from 'framer-motion'
 
 const NavLink = ({ href, children }) => {
   const pathName = usePathname()
   const isActive = href === pathName;
   return (
-    <Link href={href} className={`${isActive ? "text-[#029691] " : "text-[#45423d] hover:text-[#050403]"} px-3 py-1 font-semibold text-sm relative transition duration-300`}>{children}
+    <Link href={href} className={`${isActive ? "text-[#029691] font-semibold" : "text-[#45423d] hover:text-[#029691] transition-all duration-300"} px-3 py-1 font-semibold text-sm relative transition duration-300`}>{children}
       {isActive && (
         <motion.span
           layoutId="underline"
