@@ -1,9 +1,11 @@
-import {  poppins } from "@/fonts/font"
+'use client'
+import { poppins } from "@/fonts/font"
 import Image from "next/image"
 import Link from "next/link"
 import NavLink from "./NavLink"
 import QuickButtons from "./QuickButtons"
 import MobileMenu from "./MobileMenu"
+
 
 const Navbar = () => {
   return (

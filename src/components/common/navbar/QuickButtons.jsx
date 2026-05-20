@@ -1,9 +1,14 @@
 'use client'
+import { authClient } from '@/lib/auth-client'
 import { Button } from '@heroui/react'
 import Link from 'next/link'
 
 
 const QuickButtons = () => {
+  const { 
+        data: session, 
+  } = authClient.useSession() 
+  console.log('session', session)
   return (
     <div className='flex gap-4'>
    <Button className='rounded-md bg-white text-black border border-[#dadada] font-semibold 
