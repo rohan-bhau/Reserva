@@ -49,21 +49,20 @@ const SignInPage = () => {
           </TextField>
 
           {/* Password */}
-          <TextField
-  className="w-full"
-  name="password"
-  isRequired
-  validate={(value) => {
-    if (!value || value.length === 0) {
-      return "Password is required";
+          <TextField className="w-full"
+             name="password"
+            isRequired
+            validate={(value) => {
+            if (!value || value.length === 0) {
+            return "Password is required";
     }
-    if (value.length < 6) {
+            if (value.length < 6) {
       return "Password must be at least 6 characters";
     }
-    if (!/[A-Z]/.test(value)) {
+            if (!/[A-Z]/.test(value)) {
       return "Must include at least one uppercase letter";
     }
-    if (!/[a-z]/.test(value)) {
+             if (!/[a-z]/.test(value)) {
       return "Must include at least one lowercase letter";
     }
     return null;
