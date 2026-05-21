@@ -12,7 +12,7 @@ const ManageFacilitiesPage = async () => {
 
   const user = session?.user
 
-  const res = await fetch(`http://localhost:8000/facilities/author/${user.id}`)
+  const res = await fetch(`http://localhost:8000/facilities/author/${user?.id}`)
   const data = await res.json()
   console.log(data)
 
