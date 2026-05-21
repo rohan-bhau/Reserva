@@ -3,6 +3,7 @@ import { Button } from '@heroui/react'
 import Image from 'next/image'
 import { CiLocationOn } from 'react-icons/ci'
 import { FaUsers, FaEdit, FaTrashAlt } from 'react-icons/fa'
+import DeleteFacility from './DeleteFacility'
 
 const ManageFacilitiesCard = ({ b }) => {
 
@@ -82,13 +83,7 @@ const ManageFacilitiesCard = ({ b }) => {
             <FaEdit /> Edit
           </Button>
 
-          <Button
-            size='sm'
-            className='text-red-500 border-none hover:bg-red-50 rounded-lg w-full md:w-auto'
-            variant='outline'
-          >
-            <FaTrashAlt /> Delete
-          </Button>
+                  <DeleteFacility b={b} />
 
         </div>
 
