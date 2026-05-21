@@ -12,7 +12,7 @@ const RightCard = ({ data }) => {
     name,
     price,
     timeSlots,
-    _id
+    _id, image, location
   } = data
 
     const totalPrice = price * duration
@@ -21,7 +21,7 @@ const RightCard = ({ data }) => {
         } = authClient.useSession() 
       
     const user = session?.user
-    console.log(user)
+    // console.log(user)
     const username = user?.name;
     const email = user?.email;
     const userId = user?.id;
@@ -39,6 +39,11 @@ const RightCard = ({ data }) => {
       bookingData.userName = username;
       bookingData.userEmail = email;
       bookingData.userId = userId;
+    bookingData.status = "Pending"
+    bookingData.image = image;
+    bookingData.facilityId = _id;
+    bookingData.location = location;
+
 
       console.log('form submitted', bookingData)
       
