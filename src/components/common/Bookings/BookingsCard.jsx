@@ -3,6 +3,7 @@ import { Button, Chip } from '@heroui/react'
 import Image from 'next/image'
 import { CiLocationOn } from 'react-icons/ci'
 import { FaCalendarAlt, FaRegClock, FaTrashAlt } from 'react-icons/fa'
+import DeleteBooking from './DeleteBooking'
 
 const BookingsCard = ({ b }) => {
 
@@ -80,13 +81,9 @@ const BookingsCard = ({ b }) => {
           <p className='text-[#0EA5A4] font-bold text-lg'>
             ৳ {totalPrice}
                   </p>
-                  
-          <Button
-            variant="light"
-            className='text-red-500 hover:bg-red-50 rounded-lg'
-          >
-            <FaTrashAlt /> Delete
-          </Button>
+
+          <DeleteBooking b={b} />
+        
 
         </div>
 

@@ -1,5 +1,6 @@
-import BookingsCard from '@/components/ui/BookingsCard'
+import BookingsCard from '@/components/common/Bookings/BookingsCard'
 import React from 'react'
+import { FaRegCalendarTimes } from 'react-icons/fa'
 
 const MyBookingPage = async () => {
   const res = await fetch(`http://localhost:8000/bookings`)
@@ -11,11 +12,23 @@ const MyBookingPage = async () => {
       <p className='text-gray-600 mb-10'>View and manage all your facility bookings.</p>
 
       {/* bookings cards */}
-      <div>
+      {data?.length > 0 ? (<div>
         {
           data.map(b => <BookingsCard key={b._id} b={ b} />)
         }
-      </div>
+      </div>):  <div className='flex flex-col items-center justify-center text-center py-20 border rounded-2xl bg-white shadow-sm'>
+            
+            <FaRegCalendarTimes className='text-5xl text-[#0EA5A4] mb-4' />
+
+            <h3 className='text-xl font-semibold text-gray-800'>
+              No Bookings Yet
+            </h3>
+
+            <p className='text-gray-500 mt-2 max-w-md'>
+              You haven’t booked any facility yet. Start exploring and book your favorite sports venue now.
+            </p>
+
+          </div>}
     </div>
   )
 }
