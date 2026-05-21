@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { CiLocationOn } from 'react-icons/ci'
 import { FaUsers, FaEdit, FaTrashAlt } from 'react-icons/fa'
 import DeleteFacility from './DeleteFacility'
+import EditFacility from './EditFacility'
 
 const ManageFacilitiesCard = ({ b }) => {
 
@@ -14,7 +15,8 @@ const ManageFacilitiesCard = ({ b }) => {
     price,
     capacity,
     image
-  } = b
+    } = b
+    console.log(b)
 
   const sportColors = {
     Football: "bg-green-100 text-green-700",
@@ -76,13 +78,7 @@ const ManageFacilitiesCard = ({ b }) => {
         {/*  BUTTONS */}
         <div className='flex flex-row md:flex-col gap-3 w-full md:w-auto'>
 
-          <Button
-            size='sm'
-            className='bg-[#0EA5A4] text-white rounded-lg hover:bg-[#0B7C7B] w-full md:w-auto'
-          >
-            <FaEdit /> Edit
-          </Button>
-
+                  <EditFacility b={ b} />
                   <DeleteFacility b={b} />
 
         </div>

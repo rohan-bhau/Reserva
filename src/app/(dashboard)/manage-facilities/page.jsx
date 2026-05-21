@@ -14,6 +14,7 @@ const ManageFacilitiesPage = async () => {
 
   const res = await fetch(`http://localhost:8000/facilities/author/${user.id}`)
   const data = await res.json()
+  console.log(data)
 
   return (
     <div className='mt-20 container mx-auto px-5'>
