@@ -28,7 +28,7 @@ const ManageFacilitiesCard = ({ b }) => {
     <div className='bg-white border rounded-2xl p-4 md:p-5 flex flex-col md:flex-row gap-4 md:gap-5 shadow-sm hover:shadow-md transition duration-300 mb-5'>
 
       {/* image */}
-      <div className='relative w-full md:w-[160px] h-[180px] md:h-[120px] rounded-xl overflow-hidden flex-shrink-0'>
+      <div className='relative w-full md:w-[160px] h-[200px] md:h-[120px] rounded-xl overflow-hidden flex-shrink-0'>
         <Image
           src={image}
           alt={name}
@@ -42,12 +42,12 @@ const ManageFacilitiesCard = ({ b }) => {
         </span>
       </div>
 
-      <div className='flex-1 flex flex-col md:flex-row md:items-center md:justify-between'>
+      <div className='flex-1 flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
 
 
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 w-full'>
 
-          <h2 className='font-semibold text-base md:text-lg text-gray-800'>
+          <h2 className='font-semibold text-base md:text-lg text-gray-800 break-words'>
             {name}
           </h2>
 
@@ -55,7 +55,9 @@ const ManageFacilitiesCard = ({ b }) => {
 
             <p className='flex items-center gap-2'>
               <CiLocationOn className='text-[#0EA5A4]' />
-              {location}
+              <span className='truncate max-w-[200px] md:max-w-none'>
+                {location}
+              </span>
             </p>
 
             <p className='flex items-center gap-2'>
@@ -71,18 +73,18 @@ const ManageFacilitiesCard = ({ b }) => {
         </div>
 
         {/*  BUTTONS */}
-        <div className='flex flex-col justify-between gap-3 mt-4 md:mt-0'>
+        <div className='flex flex-row md:flex-col gap-3 w-full md:w-auto'>
 
           <Button
             size='sm'
-            className='bg-[#0EA5A4] text-white rounded-lg hover:bg-[#0B7C7B]'
+            className='bg-[#0EA5A4] text-white rounded-lg hover:bg-[#0B7C7B] w-full md:w-auto'
           >
             <FaEdit /> Edit
           </Button>
 
           <Button
             size='sm'
-            className='text-red-500 border-none hover:bg-red-50 rounded-lg'
+            className='text-red-500 border-none hover:bg-red-50 rounded-lg w-full md:w-auto'
             variant='outline'
           >
             <FaTrashAlt /> Delete
