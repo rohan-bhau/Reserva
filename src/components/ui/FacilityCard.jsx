@@ -1,7 +1,6 @@
 'use client'
 import { Button, Skeleton } from '@heroui/react'
 import { motion } from 'framer-motion'
-import { div } from 'motion/react-client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaClock, FaMapMarkerAlt, FaUsers } from 'react-icons/fa'
