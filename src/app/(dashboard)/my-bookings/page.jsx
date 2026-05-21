@@ -1,9 +1,17 @@
 import BookingsCard from '@/components/common/Bookings/BookingsCard'
+import { auth } from '@/lib/auth'
+import { headers } from 'next/headers'
 import React from 'react'
 import { FaRegCalendarTimes } from 'react-icons/fa'
 
 const MyBookingPage = async () => {
-  const res = await fetch(`http://localhost:8000/bookings`)
+   const {token} = await auth.api.getToken({
+        headers: await headers()
+      })
+      console.log(token)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,{headers: {
+          authorization: `Bearer ${token}`
+        }})
   const data = await res.json()
   console.log(data)
   return (

@@ -9,7 +9,6 @@ import Featured from '@/components/common/featured/Featured'
 const Homepage = () => {
   return (
     <div>
-          HomePage
       <Banner />
       <Featured/>
           <UpcomingEvents/>

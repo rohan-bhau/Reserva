@@ -48,8 +48,8 @@ const FacilityCard = ({ facility }) => {
         <div className="relative h-52 overflow-hidden">
 
           <Image
-            src={facility.image}
-            alt={facility.name}
+            src={facility?.image}
+            alt={facility?.name}
             fill
             className="object-cover transition duration-500 hover:scale-110"
           />

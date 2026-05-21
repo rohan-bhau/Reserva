@@ -4,7 +4,7 @@ import { FaTrashAlt } from "react-icons/fa";
 
 const DeleteFacility =  ({ b }) => {
     const handleDelete = async () => {
-        const res = await fetch(`http://localhost:8000/facilities/${b._id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${b._id}`, {
             method: "DELETE",
             headers: {
                 'content-type': 'application/json',

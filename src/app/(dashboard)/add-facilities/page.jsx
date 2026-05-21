@@ -81,10 +81,14 @@ const AddFacilityPage = () => {
 
     console.log(facilityData);
 
-    const res = await fetch(`http://localhost:8000/facilities`, {
+    const { data: tokenData } = await authClient.token()
+    console.log(tokenData)
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`, {
       method: "POST",
       headers: {
-        'content-type':'application/json'
+        'content-type': 'application/json',
+        authorization: `Bearer ${tokenData?.token}`
       },
       body: JSON.stringify(facilityData)
     })

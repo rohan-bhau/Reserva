@@ -4,11 +4,21 @@ import React from 'react'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { FaMapMarkerAlt, FaUsers, FaClock } from 'react-icons/fa'
 import RightCard from '@/components/common/facilityDetailPage/RightCard'
+import { auth } from '@/lib/auth'
+import { headers } from 'next/headers'
 
 const FacilityDetailPage = async ({ params }) => {
   const { id } = await params
+  const {token} = await auth.api.getToken({
+    headers: await headers()
+  })
+  console.log(token)
 
-  const res = await fetch(`http://localhost:8000/facilities/${id}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
   const data = await res.json()
 
   const {

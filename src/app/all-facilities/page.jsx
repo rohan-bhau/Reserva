@@ -3,7 +3,7 @@ import FacilityCard from '@/components/ui/FacilityCard'
 import React from 'react'
 
 const AllFacilitiesPage = async() => {
-  const res = await fetch(`http://localhost:8000/facilities`,{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`,{
     cache: "no-store"
   })
   const data = await res.json()
