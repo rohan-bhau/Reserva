@@ -61,7 +61,7 @@ const AddFacilityPage = () => {
     } = authClient.useSession() 
   
     const user = session?.user
-    console.log('session', user)
+    // console.log('session', user)
 
   const onSubmit = async (e) => {
     e.preventDefault();
