@@ -11,9 +11,11 @@ const RightCard = ({ data }) => {
   const {
     name,
     price,
-    timeSlots,
-    _id, image, location
-  } = data
+    timeSlots = [],
+    _id,
+    image,
+    location,
+  } = data || {}
 
     const totalPrice = price * duration
     const { 
