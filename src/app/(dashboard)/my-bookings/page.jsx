@@ -8,12 +8,12 @@ const MyBookingPage = async () => {
    const {token} = await auth.api.getToken({
         headers: await headers()
       })
-      console.log(token)
+      // console.log(token)
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,{headers: {
           authorization: `Bearer ${token}`
         }})
   const data = await res.json()
-  console.log(data)
+  // console.log(data)
   return (
     <div className='mt-20'>
       <h2 className='text-3xl font-bold '>My Bookings</h2>

@@ -2,6 +2,7 @@
 
 import { authClient } from "@/lib/auth-client"
 import { Button } from "@heroui/react"
+import { redirect } from "next/navigation"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
@@ -45,7 +46,7 @@ const RightCard = ({ data }) => {
     bookingData.location = location;
 
 
-    console.log('form submitted', bookingData)
+    // console.log('form submitted', bookingData)
     
     
         const {data:tokenData}=await authClient.token()
@@ -60,8 +61,9 @@ const RightCard = ({ data }) => {
       })
 
       const data = await res.json()
-      console.log('data after post', data)
-      toast.success("Booking Successfull! ")
+      // console.log('data after post', data)
+    toast.success("Booking Successfull! ")
+    redirect('/my-bookings')
 
     form.reset()
     setDuration(1)

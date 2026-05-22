@@ -1,6 +1,7 @@
 'use client'
 
 import FacilityCard from '@/components/ui/FacilityCard'
+import { Spinner } from '@heroui/react'
 import { useState, useEffect } from 'react'
 import { FaSearch, FaChevronDown } from 'react-icons/fa'
 
@@ -121,10 +122,13 @@ const FacilitiesClient = ({ data: initialData }) => {
 
 
       {loading ? (
-        <div className='text-center py-20'>
-          <h3 className='text-xl font-semibold text-gray-700'>
+        <div className='text-center py-20 flex justify-center'>
+          <div className='flex gap-2 justify-center items-center'>
+            <Spinner/>
+            <h3 className='text-xl font-semibold text-gray-700'>
             Loading facilities... ⏳
           </h3>
+          </div>
         </div>
       ) : filteredData.length > 0 ? (
         <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6'>

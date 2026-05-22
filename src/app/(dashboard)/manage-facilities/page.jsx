@@ -14,13 +14,13 @@ const ManageFacilitiesPage = async () => {
   const {token} = await auth.api.getToken({
       headers: await headers()
     })
-    console.log(token)
+    // console.log(token)
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/author/${user?.id}`, {headers: {
         authorization: `Bearer ${token}`
       }})
   const data = await res.json()
-  console.log(data)
+  // console.log(data)
 
   return (
     <div className='mt-20 container mx-auto px-5'>

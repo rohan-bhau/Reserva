@@ -16,7 +16,7 @@ const ManageFacilitiesCard = ({ b }) => {
     capacity,
     image
     } = b
-    console.log(b)
+    // console.log(b)
 
   const sportColors = {
     Football: "bg-green-100 text-green-700",
