@@ -41,6 +41,8 @@ const FacilitiesClient = ({ data }) => {
 
       <div className='w-full p-4 bg-white mb-8'>
 
+        {/* filtering */}
+
   <div className='flex flex-col xl:flex-row gap-4'>
 
     <div className='w-full xl:flex-1'>
