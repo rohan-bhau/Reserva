@@ -1,28 +1,50 @@
-/* eslint-disable @next/next/no-async-client-component */
-'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { IoArrowBackOutline } from 'react-icons/io5'
-import { FaMapMarkerAlt, FaUsers, FaClock } from 'react-icons/fa'
 import RightCard from '@/components/common/facilityDetailPage/RightCard'
 import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'
+import { notFound, redirect } from 'next/navigation'
 
 const FacilityDetailPage = async ({ params }) => {
   const { id } = await params
 
-  const {token} = await auth.api.getToken({
+
+  const { token } = await auth.api.getToken({
     headers: await headers()
   })
-  console.log(token)
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}`, {
-    headers: {
-      authorization: `Bearer ${token}`
+
+  if (!token) {
+    redirect('/login')
+  }
+
+
+  let data
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`
+      },
+      cache: 'no-store' 
+    })
+
+    if (!res.ok) {
+      if (res.status === 404) notFound()
+      throw new Error(`Server responded with status: ${res.status}`)
     }
-  })
-  const data = await res.json()
+
+    data = await res.json()
+  } catch (error) {
+    console.error('Facility fetch error:', error)
+    throw new Error('Failed to load facility data')
+  }
+
+  
+  if (!data || data.error) {
+    notFound()
+  }
 
   const {
     author,
@@ -34,7 +56,7 @@ const FacilityDetailPage = async ({ params }) => {
     name,
     price,
     sportType,
-    timeSlots,
+    timeSlots = [], 
     _id
   } = data
 
@@ -53,25 +75,27 @@ const FacilityDetailPage = async ({ params }) => {
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
 
         {/* left content */}
-         <div>
+        <div>
           <div className='relative w-full h-72 rounded-2xl overflow-hidden group'>
 
-        {/* image */}
-          <Image
-              
-            src={image}
-            alt={name}
-            fill
-            className='object-cover transition duration-500 group-hover:scale-110'
-          />
+            {/* image */}
+            {image && (
+              <Image
+                src={image}
+                alt={name || 'Facility Image'}
+                fill
+                className='object-cover transition duration-500 group-hover:scale-110'
+              />
+            )}
 
-        {/* sport type */}
-          <div className='absolute top-4 left-4'>
-          <span className='px-3 py-1 text-xs font-semibold rounded-full bg-white/90 text-[#0EA5A4] shadow'>
-            {sportType}
-          </span>
-          </div>
-
+            {/* sport type */}
+            {sportType && (
+              <div className='absolute top-4 left-4'>
+                <span className='px-3 py-1 text-xs font-semibold rounded-full bg-white/90 text-[#0EA5A4] shadow'>
+                  {sportType}
+                </span>
+              </div>
+            )}
           </div>
 
           <h2 className='font-bold text-4xl mt-5'>{name}</h2>
@@ -79,17 +103,17 @@ const FacilityDetailPage = async ({ params }) => {
           <div className='grid grid-cols-2 gap-4 mt-6'>
             <div className='bg-gray-100 p-4 rounded-xl'>
               <p className='text-sm text-gray-500'>Location</p>
-              <p className='font-semibold'>{location}</p>
+              <p className='font-semibold'>{location || 'N/A'}</p>
             </div>
 
             <div className='bg-gray-100 p-4 rounded-xl'>
               <p className='text-sm text-gray-500'>Capacity</p>
-              <p className='font-semibold'>Up to {capacity} players</p>
+              <p className='font-semibold'>Up to {capacity || 0} players</p>
             </div>
 
             <div className='bg-gray-100 p-4 rounded-xl'>
               <p className='text-sm text-gray-500'>Price</p>
-              <p className='font-semibold'>৳ {price}/hour</p>
+              <p className='font-semibold'>৳ {price || 0}/hour</p>
             </div>
 
             <div className='bg-gray-100 p-4 rounded-xl'>
@@ -101,17 +125,16 @@ const FacilityDetailPage = async ({ params }) => {
           {/* description */}
           <div className='mt-6'>
             <h3 className='font-semibold text-lg mb-2'>Description</h3>
-            <p className='text-gray-600'>{description}</p>
+            <p className='text-gray-600'>{description || 'No description available.'}</p>
           </div>
 
           {/* author */}
           <div className='mt-6 p-4 bg-gray-50 rounded-xl border'>
             <p className='text-sm text-gray-500'>Created By</p>
-            <p className='font-semibold'>{author}</p>
-            <p className='text-sm text-gray-500'>{authorEmail}</p>
+            <p className='font-semibold'>{author || 'Unknown'}</p>
+            <p className='text-sm text-gray-500'>{authorEmail || ''}</p>
           </div>
         </div>
-
 
         {/* right side content */}
         <RightCard data={data} />
