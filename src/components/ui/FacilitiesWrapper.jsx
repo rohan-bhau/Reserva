@@ -1,7 +1,7 @@
 'use client'
 
 import FacilityCard from '@/components/ui/FacilityCard'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaSearch, FaChevronDown } from 'react-icons/fa'
 
 const sports = [
@@ -13,28 +13,40 @@ const sports = [
   "Volleyball"
 ]
 
-const FacilitiesClient = ({ data }) => {
+const FacilitiesClient = ({ data: initialData }) => {
 
   const [search, setSearch] = useState("")
   const [selectedSport, setSelectedSport] = useState("All Sports")
   const [sortOrder, setSortOrder] = useState("")
+  const [filteredData, setFilteredData] = useState(initialData || [])
+  const [loading, setLoading] = useState(false)
 
-  const filteredData = data
-    .filter(f => {
-      const matchSearch =
-        f.name.toLowerCase().includes(search.toLowerCase()) ||
-        f.description.toLowerCase().includes(search.toLowerCase())
+  // Fetch filtered data from server
+  useEffect(() => {
+    const fetchFilteredData = async () => {
+      try {
+        setLoading(true)
+        const params = new URLSearchParams()
+        
+        if (search) params.append("search", search)
+        if (selectedSport !== "All Sports") params.append("sportType", selectedSport)
+        if (sortOrder) params.append("sortOrder", sortOrder)
+        
+        const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities${params.toString() ? '?' + params.toString() : ''}`
+        
+        const res = await fetch(url, { cache: "no-store" })
+        const data = await res.json()
+        setFilteredData(data || [])
+      } catch (error) {
+        console.error("Error fetching filtered data:", error)
+        setFilteredData(initialData || [])
+      } finally {
+        setLoading(false)
+      }
+    }
 
-      const matchSport =
-        selectedSport === "All Sports" || f.sportType === selectedSport
-
-      return matchSearch && matchSport
-    })
-    .sort((a, b) => {
-      if (sortOrder === "asc") return a.price - b.price
-      if (sortOrder === "desc") return b.price - a.price
-      return 0
-    })
+    fetchFilteredData()
+  }, [search, selectedSport, sortOrder, initialData])
 
   return (
     <div>
@@ -108,30 +120,34 @@ const FacilitiesClient = ({ data }) => {
 </div>
 
 
-      {
-        filteredData.length > 0 ? (
-          <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6'>
-            {
-              filteredData.map(facility => (
-                <FacilityCard
-                  key={facility._id}
-                  facility={facility}
-                />
-              ))
-            }
-          </div>
-        ) : (
-          <div className='text-center py-20'>
-            <h3 className='text-xl font-semibold text-gray-700'>
-              No facilities found 😔
-            </h3>
+      {loading ? (
+        <div className='text-center py-20'>
+          <h3 className='text-xl font-semibold text-gray-700'>
+            Loading facilities... ⏳
+          </h3>
+        </div>
+      ) : filteredData.length > 0 ? (
+        <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6'>
+          {
+            filteredData.map(facility => (
+              <FacilityCard
+                key={facility._id}
+                facility={facility}
+              />
+            ))
+          }
+        </div>
+      ) : (
+        <div className='text-center py-20'>
+          <h3 className='text-xl font-semibold text-gray-700'>
+            No facilities found 😔
+          </h3>
 
-            <p className='text-gray-500 mt-2'>
-              Try changing search or filters
-            </p>
-          </div>
-        )
-      }
+          <p className='text-gray-500 mt-2'>
+            Try changing search or filters
+          </p>
+        </div>
+      )}
 
     </div>
   )
