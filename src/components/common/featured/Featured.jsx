@@ -6,7 +6,7 @@ const Featured = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/featured`)
     const data =  await res.json()
   return (
-      <div className='container mx-auto py-15'>
+      <div className='container mx-auto py-15 px-5'>
           
         <Heading/>
 

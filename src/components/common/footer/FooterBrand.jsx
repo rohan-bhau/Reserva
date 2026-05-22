@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa"
+import { FaXTwitter } from 'react-icons/fa6'
 
 export const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -27,7 +28,7 @@ const FooterBrand = () => {
           <div className='flex gap-4 mt-5'>
             <FaFacebook className='text-lg hover:text-[#0EA5A4] transition cursor-pointer' />
             <FaInstagram className='text-lg hover:text-[#0EA5A4] transition cursor-pointer' />
-            <FaTwitter className='text-lg hover:text-[#0EA5A4] transition cursor-pointer' />
+            <FaXTwitter className='text-lg hover:text-[#0EA5A4] transition cursor-pointer' />
           </div>
         </motion.div>
   )
