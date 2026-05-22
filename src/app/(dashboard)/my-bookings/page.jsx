@@ -14,11 +14,26 @@ const MyBookingPage = async () => {
         headers: await headers()
       })
       // console.log(token)
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/author/${user?.id}`,{headers: {
-          authorization: `Bearer ${token}`
-        }})
-  const data = await res.json()
-  // console.log(data)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/author/${user?.id}`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    },
+  });
+
+  let data = [];
+  if (res.ok) {
+    try {
+      const json = await res.json();
+      data = Array.isArray(json) ? json : [];
+    } catch (error) {
+      console.error('Failed to parse bookings response:', error);
+      data = [];
+    }
+  } else {
+    const text = await res.text();
+    console.error('Failed to fetch bookings:', res.status, text);
+  }
+
   return (
     <div className='mt-20'>
       <h2 className='text-3xl font-bold '>My Bookings</h2>
