@@ -15,7 +15,7 @@ const FacilityDetailPage = async ({ params }) => {
     headers: await headers()
   })
 
-
+console.log('token', token)
   if (!token) {
     redirect('/login')
   }
