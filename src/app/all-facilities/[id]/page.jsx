@@ -9,6 +9,7 @@ import { headers } from 'next/headers'
 
 const FacilityDetailPage = async ({ params }) => {
   const { id } = await params
+
   const {token} = await auth.api.getToken({
     headers: await headers()
   })

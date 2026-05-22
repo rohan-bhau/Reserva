@@ -1,36 +1,192 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Reserva - Sports Facility Booking Platform
 
-## Getting Started
+## Live Website
+[(https://reservaa.vercel.app/)](https://reservaa.vercel.app/)
 
-First, run the development server:
+---
+
+## Project Overview
+
+Reserva is a modern full-stack sports facility booking platform where users can explore sports venues, book facilities, and manage their own sports spaces seamlessly. The platform provides a clean and responsive user experience with secure authentication, booking management, and facility control features.
+
+Users can browse football turfs, badminton courts, cricket grounds, tennis courts, basketball arenas, and more. Authenticated users can add and manage their own facilities, while also booking available sports venues.
+
+---
+
+## Features
+
+### Authentication & Authorization
+- Email & Password Authentication
+- Google Login
+- Protected Private Routes
+- Persistent User Login
+- Secure JWT Authentication with HTTPOnly Cookies
+
+### Facility Management
+- Add New Facility
+- Update Facility Information
+- Delete Facility
+- Upload Facility Images
+- Manage Personal Facilities
+
+### Booking System
+- Book Sports Facilities
+- Dynamic Total Price Calculation
+- Booking Status System
+- Cancel Booking Feature
+- View Personal Bookings
+
+### Search & Filter
+- Search Facilities by Name
+- Filter by Sport Type
+- Responsive Filtering Experience
+
+### User Experience
+- Fully Responsive Design
+- Clean Modern UI/UX
+- Loading Spinner
+- Custom 404 Page
+- Toast Notifications
+- Smooth Animations using Framer Motion
+
+---
+
+## Technologies Used
+
+### Frontend
+- React.js
+- React Router
+- Tailwind CSS
+- Hero UI
+- Framer Motion
+
+### Authentication
+- Better Auth
+
+### Database
+- MongoDB
+
+---
+
+## NPM Packages Used
+
+- @heroui/react
+- @gravity-ui/icons
+- react-icons
+- react-hot-toast
+- framer-motion
+- better-auth
+- mongodb
+
+---
+
+## Main Pages
+
+- Home Page
+- All Facilities Page
+- Facility Details Page
+- Login Page
+- Register Page
+- Add Facility Page
+- Manage My Facilities Page
+- My Bookings Page
+- 404 Not Found Page
+
+---
+
+## Core Functionalities
+
+### Users Can
+- Explore facilities
+- Book facilities
+- Cancel bookings
+- Add their own facilities
+- Manage their own facilities
+
+### Facility Owners Can
+- Update facility information
+- Delete facilities
+- Manage bookings
+
+---
+
+## Database Collections
+
+### Facilities Collection
+- name
+- facility_type
+- location
+- price_per_hour
+- capacity
+- available_slots
+- description
+- owner_email
+- booking_count
+
+### Bookings Collection
+- facility_id
+- user_email
+- booking_date
+- time_slot
+- hours
+- total_price
+- status
+
+---
+
+## Environment Variables
+
+Create a `.env.local` file and add:
+
+```env
+VITE_API_URL=your_server_url
+VITE_IMGBB_API_KEY=your_imgbb_api_key
+```
+
+---
+
+## Installation & Setup
+
+### Clone Repository
+
+```bash
+https://github.com/rohan-bhau/Reserva
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## UI/UX Highlights
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Recruiter-friendly modern design
+- Equal card sizing and spacing
+- Fully responsive layouts
+- Smooth user interaction
+- Consistent typography and button styling
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Future Improvements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Dark/Light Theme Toggle
+- Booking Analytics Dashboard
+- Real-time Notifications
+- Payment Integration
+- Review & Rating System
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Author
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Developed by Rohan Mia
