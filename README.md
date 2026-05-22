@@ -54,7 +54,7 @@ Users can browse football turfs, badminton courts, cricket grounds, tennis court
 ## Technologies Used
 
 ### Frontend
-- React.js
+- Next.js
 - React Router
 - Tailwind CSS
 - Hero UI
@@ -114,23 +114,29 @@ Users can browse football turfs, badminton courts, cricket grounds, tennis court
 
 ### Facilities Collection
 - name
-- facility_type
+- sportType
 - location
-- price_per_hour
+- price
 - capacity
-- available_slots
+- image
+- timeSlots
 - description
-- owner_email
+- author
+- authorEmail
+- authorId
 - booking_count
 
 ### Bookings Collection
-- facility_id
-- user_email
-- booking_date
-- time_slot
-- hours
-- total_price
+- _id
+- facilityName
+- userEmail
+- userId
 - status
+- image
+- bookingDate
+- bookingTime
+- totalPrice
+
 
 ---
 
@@ -139,8 +145,14 @@ Users can browse football turfs, badminton courts, cricket grounds, tennis court
 Create a `.env.local` file and add:
 
 ```env
-VITE_API_URL=your_server_url
-VITE_IMGBB_API_KEY=your_imgbb_api_key
+BETTER_AUTH_SECRET=your_server_url
+BETTER_AUTH_URL=your_imgbb_api_key
+MONGODB_URI = your_mongodb_uri
+GOOGLE_CLIENT_ID = your_google_client_id
+GOOGLE_CLIENT_SECRET = your_google_client_secret
+GITHUB_CLIENT_ID = your_github_id
+GITHUB_CLIENT_SECRET = your_github_secret
+NEXT_PUBLIC_SERVER_URL = you_backed_server_link
 ```
 
 ---
