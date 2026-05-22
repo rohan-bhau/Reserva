@@ -17,7 +17,7 @@ const FacilityDetailPage = async ({ params }) => {
 
 
   if (!token) {
-    redirect('/')
+    redirect('/signin')
   }
 
 
