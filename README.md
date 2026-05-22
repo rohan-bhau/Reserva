@@ -124,7 +124,6 @@ Users can browse football turfs, badminton courts, cricket grounds, tennis court
 - author
 - authorEmail
 - authorId
-- booking_count
 
 ### Bookings Collection
 - _id
