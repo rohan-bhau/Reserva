@@ -5,11 +5,16 @@ import React from 'react'
 import { FaRegCalendarTimes } from 'react-icons/fa'
 
 const MyBookingPage = async () => {
+   const session = await auth.api.getSession({
+      headers: await headers()
+    })
+  
+    const user = session?.user
    const {token} = await auth.api.getToken({
         headers: await headers()
       })
       // console.log(token)
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,{headers: {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/author/${user?.id}`,{headers: {
           authorization: `Bearer ${token}`
         }})
   const data = await res.json()
