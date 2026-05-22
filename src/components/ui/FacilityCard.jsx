@@ -98,7 +98,7 @@ const FacilityCard = ({ facility }) => {
           </div>
 
           {/* button */}
-                  <Link href={`/all-facilities/facilityDetails?facilityId=${facility._id}`}>
+                   <Link href={`/all-facilities/${facility._id}`}>
                   <Button
             className="mt-3 w-full bg-[#0EA5A4] text-white py-2 rounded-lg font-semibold hover:bg-[#0B7C7B] transition duration-300"
           >

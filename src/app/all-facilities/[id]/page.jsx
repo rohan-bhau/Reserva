@@ -1,86 +1,49 @@
-'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import RightCard from '@/components/common/facilityDetailPage/RightCard'
-import { useSearchParams } from 'next/navigation'
-import { authClient } from '@/lib/auth-client'
+import { auth } from '@/lib/auth'
+import { headers } from 'next/headers'
+import { notFound, redirect } from 'next/navigation'
 
-const FacilityDetailPage = () => {
- const searchParams = useSearchParams()
+const FacilityDetailPage = async ({ params }) => {
+  const { id } = await params
 
-  const [facility, setFacility] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [fetchError, setFetchError] = useState(null)
 
-  const facilityId = searchParams.get('facilityId')
+  const { token } = await auth.api.getToken({
+    headers: await headers()
+  })
 
-  useEffect(() => {
-    if (!facilityId) {
-      return
+
+  if (!token) {
+    redirect('/login')
+  }
+
+
+  let data
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`
+      },
+      cache: 'no-store' 
+    })
+
+    if (!res.ok) {
+      if (res.status === 404) notFound()
+      throw new Error(`Server responded with status: ${res.status}`)
     }
 
-    const fetchFacility = async () => {
-      setLoading(true)
-      setFetchError(null)
-
-      try {
-        const { data: tokenData } = await authClient.token()
-        const accessToken = tokenData?.token ?? tokenData
-
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${facilityId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        )
-
-        if (!res.ok) {
-          throw new Error(`Failed to load facility: ${res.status} ${res.statusText}`)
-        }
-
-        const data = await res.json()
-        setFacility(data)
-      } catch (error) {
-        console.error(error)
-        setFetchError(error?.message || 'Failed to load facility.')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchFacility()
-  }, [facilityId])
-
-  if (!facilityId) {
-    return (
-      <div className='mt-20 container mx-auto py-10 px-5 text-red-600'>
-        Facility ID is missing from the URL.
-      </div>
-    )
+    data = await res.json()
+  } catch (error) {
+    console.error('Facility fetch error:', error)
+    throw new Error('Failed to load facility data')
   }
 
-  if (loading) {
-    return <div className='mt-20 container mx-auto py-10 px-5'>Loading facility...</div>
-  }
-
-  if (fetchError) {
-    return (
-      <div className='mt-20 container mx-auto py-10 px-5 text-red-600'>
-        Error loading facility: {fetchError}
-      </div>
-    )
-  }
-
-  if (!facility) {
-    return (
-      <div className='mt-20 container mx-auto py-10 px-5 text-gray-700'>
-        Facility not found.
-      </div>
-    )
+ 
+  if (!data || data.error) {
+    notFound()
   }
 
   const {
@@ -94,8 +57,8 @@ const FacilityDetailPage = () => {
     price,
     sportType,
     timeSlots = [],
-    _id,
-  } = facility
+    _id
+  } = data
 
   return (
     <div className='mt-20 container mx-auto py-10 px-5'>
@@ -174,7 +137,7 @@ const FacilityDetailPage = () => {
         </div>
 
         {/* right side content */}
-        <RightCard data={facility} />
+        <RightCard data={data} />
 
       </div>
     </div>
