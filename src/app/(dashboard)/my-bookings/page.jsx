@@ -5,33 +5,53 @@ import React from 'react'
 import { FaRegCalendarTimes } from 'react-icons/fa'
 
 const MyBookingPage = async () => {
-   const session = await auth.api.getSession({
-      headers: await headers()
-    })
-  
-    const user = session?.user
-   const {token} = await auth.api.getToken({
-        headers: await headers()
-      })
-      // console.log(token)
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/author/${user?.id}`, {
-    headers: {
-      authorization: `Bearer ${token}`
-    },
-  });
+  const session = await auth.api.getSession({ headers: await headers() })
 
-  let data = [];
-  if (res.ok) {
-    try {
-      const json = await res.json();
-      data = Array.isArray(json) ? json : [];
-    } catch (error) {
-      console.error('Failed to parse bookings response:', error);
-      data = [];
+  const user = session?.user
+
+ 
+  if (!user) {
+    return (
+      <div className='mt-20'>
+        <h2 className='text-3xl font-bold '>My Bookings</h2>
+        <p className='text-gray-600 mb-10'>You need to sign in to view your bookings.</p>
+        <div className='flex items-center justify-center'>
+          <a href='/signin' className='px-4 py-2 bg-[#0EA5A4] text-white rounded-lg'>Sign in</a>
+        </div>
+      </div>
+    )
+  }
+
+ 
+  let data = []
+  let token = null
+  try {
+    const tokenRes = await auth.api.getToken({ headers: await headers() })
+    token = tokenRes?.token
+  } catch (err) {
+    console.error('Error getting token for my-bookings:', err)
+    token = null
+  }
+
+  if (user?.id && token) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/author/${user.id}`, {
+      headers: { authorization: `Bearer ${token}` },
+    })
+
+    if (res.ok) {
+      try {
+        const json = await res.json()
+        data = Array.isArray(json) ? json : []
+      } catch (error) {
+        console.error('Failed to parse bookings response:', error)
+        data = []
+      }
+    } else {
+      const text = await res.text()
+      console.error('Failed to fetch bookings:', res.status, text)
     }
   } else {
-    const text = await res.text();
-    console.error('Failed to fetch bookings:', res.status, text);
+    data = []
   }
 
   return (

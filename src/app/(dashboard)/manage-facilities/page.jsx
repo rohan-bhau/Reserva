@@ -1,26 +1,51 @@
 import ManageFacilitiesCard from '@/components/common/manageFacilities/ManageFacilitiesCard'
 import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import React from 'react'
 import { FaPlus, FaRegCalendarTimes } from 'react-icons/fa'
 
 const ManageFacilitiesPage = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers()
-  })
+  const session = await auth.api.getSession({ headers: await headers() })
 
   const user = session?.user
-  const {token} = await auth.api.getToken({
-      headers: await headers()
-    })
-    // console.log(token)
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/author/${user?.id}`, {headers: {
-        authorization: `Bearer ${token}`
-      }})
-  const data = await res.json()
-  // console.log(data)
+  
+  if (!user) {
+    redirect('/signin')
+  }
+
+  let token = null
+  try {
+    const tokenRes = await auth.api.getToken({ headers: await headers() })
+    token = tokenRes?.token
+  } catch (err) {
+    console.error('Error getting token for manage-facilities:', err)
+    token = null
+  }
+
+  let data = []
+  if (user?.id && token) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/author/${user.id}`, {
+      headers: { authorization: `Bearer ${token}` },
+    })
+
+    if (res.ok) {
+      try {
+        const json = await res.json()
+        data = Array.isArray(json) ? json : []
+      } catch (error) {
+        console.error('Failed to parse facilities response:', error)
+        data = []
+      }
+    } else {
+      const text = await res.text()
+      console.error('Failed to fetch facilities:', res.status, text)
+    }
+  } else {
+    data = []
+  }
 
   return (
     <div className='mt-20 container mx-auto px-5'>
